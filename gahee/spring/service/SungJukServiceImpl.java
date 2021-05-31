@@ -1,5 +1,7 @@
 package gahee.spring.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +36,35 @@ public class SungJukServiceImpl implements SungJukService {
 		sj.setTot(tot);
 		sj.setAvg(avg);
 		sj.setGrd(grd.charAt(0));
+	}
+
+	@Override
+	public void readAllSungJuk() {
+		StringBuffer sb = new StringBuffer();
+		List<SungJuk> sjs = sjdao.selectAllSungJuk();
+		
+		for(SungJuk sj : sjs)  sb.append(sj);
+		System.out.println(sb);	
+	}
+
+	@Override
+	public void readOneSungJuk(int sjno) {
+		SungJuk sj = sjdao.selectOneSungJuk(sjno);
+		System.out.println(sj);	
+	}
+
+	@Override
+	public void modifySungJuk() {
+		SungJuk sj = new SungJuk(null,78,85,65);
+		sj.setSjno("5");
+		computeSungJuk(sj);
+
+		sjdao.updateSungJuk(sj);
+	}
+
+	@Override
+	public void removeSungJuk() {
+		sjdao.deleteSungJuk(7);
 	}
 
 }
